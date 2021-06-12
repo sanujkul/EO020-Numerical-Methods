@@ -5,17 +5,17 @@ from sympy import *
 #The variable x, for defining the function
 x = Symbol('x')
 #function in x
-func = cos(x) - x*exp(x)
-min_root_range = 0
-max_root_range = 100;
+func = exp(x) - 3**x
+min_root_range = 0.2
+max_root_range = 1.2;
 
 
 ####################################################################
 ####################################################################
 
 def numerical_netwon(fx, f1x, f2x):
-    xo = findStartingPoint_numerical(fx, f2x)
-    
+    #xo = findStartingPoint_numerical(fx, f2x)
+    xo = -2
     while (abs(fx(xo)) > 0.0000001):
         xo = xo - (fx(xo)/f1x(xo));
 
@@ -30,7 +30,7 @@ def numerical_netwon(fx, f1x, f2x):
 # f(x).f''(x) > 0
 def findStartingPoint_numerical(fx, f2x):
     a = findStartingPoint_bisection(fx);
-    b = a+1;
+    b = a+0.2;
     
     m = (a+b)/2;
 
@@ -57,11 +57,11 @@ def findStartingPoint_bisection(fx):
     fa = fx(min_root_range);
     print('at x = {}, fx = {}'.format(min_root_range, fa))
     
-    for i in range(min_root_range+1, max_root_range+1):
+    for i in range(min_root_range+0.2, max_root_range, 0.2):
         fb = fx(i);
         #print('at x = {}, fx = {}'.format(i, fb))
         if(fa*fb < 0):
-            return i-1
+            return i-0.2
         fa = fb;
 
 

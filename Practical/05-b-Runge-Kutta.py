@@ -13,7 +13,7 @@ yo = 1
 #and value of xn whose yn is to be found
 xn = 0.02
 #No of intervals to divide:
-h = 0.001
+h = 0.01
 
 
 #======================================================================
