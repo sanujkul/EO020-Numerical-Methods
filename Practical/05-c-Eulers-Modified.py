@@ -6,15 +6,15 @@ from sympy import *
 x = Symbol('x')
 y = Symbol('y')
 #function in x,y that is dy/dx (2nd order fun can be: 5*x**2 + 2*x + 1)
-funcXY = x + 2*y
+funcXY = x + 3*y
 #funcXY = x**3 + y
 # Given Initial condition (xo, yo)  
 ##xo = 1
 ##yo = 1
-xo = 1
+xo = 0
 yo = 1
 #and value of xn whose yn is to be found
-xn = 2
+xn = 1
 #No of intervals to divide:
 n = 10
 
@@ -36,27 +36,41 @@ def eulerFunc(xn, yn, h, fxy):
     return yn + (h * fxy_n)
      
 
+#MAIN MOdified EULER FUNCTION
+# y(n+1) = yn + (h/2)[f(xn,yn) + f(xn+1, yn+1)]
+def modified_eulerFunc(xn, yn, xn1, yn1, h, fxy):
+    fxy_n = fxy(xn, yn)
+    fxy_n1 = fxy(xn1, yn1)
+    
+    return yn + ((h/2) * (fxy_n + fxy_n1))
 
+     
 #======================================================================
 #======================================================================
 
 def eulerIteration(xo, yo, xn, h, fxy):
 
     print("------------------------------------")
-    print("x \t y \t dy/dx \t ynew=yold+h(dy/dx)")
+    print("xn \t yn \t dy/dx)n \t ynew \t xn+1 \t dy/dx)n+1 \t Modified Eulers")
     print("------------------------------------")
     x_cur = xo
     y_cur = yo
 
-    while(x_cur < xn):
-        y_new = eulerFunc(x_cur, y_cur, h, fxy)
+    while(x_cur <= xn-h):
+        y_new = eulerFunc(x_cur, y_cur, h, fxy);
+        x_new = x_cur + h;
+        y_new_modified = modified_eulerFunc(x_cur, y_cur, x_new, y_new, h, fxy)
+        
         print("{0:.4f}".format(x_cur), end=" | ");
         print("{0:.4f}".format(y_cur), end=" | ");
         print("{0:.4f}".format(fxy(x_cur, y_cur)), end=" | ");
-        print("{0:.4f}".format(y_new));
+        print("{0:.4f}".format(y_new), end=" | ");
+        print("{0:.4f}".format(x_new), end=" | ");
+        print("{0:.4f}".format(fxy(x_new, y_new)), end=" | ");
+        print("{0:.4f}".format(y_new_modified))
         
         x_cur = x_cur + h;
-        y_cur = y_new
+        y_cur = y_new_modified;
 
     print("{0:.4f}".format(x_cur), end=" | ");
     print("{0:.4f}".format(y_cur));

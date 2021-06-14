@@ -8,10 +8,14 @@ from sympy import *
 #The variable x, for defining the function
 x = Symbol('x')
 #function in x
-func = x**3 - 5*x + 1
-xA = 1
-xB = 3
+#func = x**3 - 5*x + 1
+#func = cos(x) - x*exp(x)
+func = x - exp(-x)
 
+xA = 1
+xB = 2
+
+error = 0.0000001
 
 #In this code we have assumed that A will be fixed, since fA = +ve
 # and B will vary 
@@ -24,7 +28,7 @@ def regulaFalsi_B(fx):
     i = 0;
     print("x{} = {} \t f(xn) = {}".format(i, xn, fxn));
     
-    while abs(fxn) > 0.01:
+    while abs(fxn) > error:
         x_new = regula_Falsi_Formula_B_fixed(fx, xn, xB)
         i = i+1;
         xn = x_new;

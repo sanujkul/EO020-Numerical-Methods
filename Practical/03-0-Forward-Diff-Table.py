@@ -6,19 +6,20 @@ from math import *
 #Initialization part
 
 #User will input givenX and givenXY
-givenX = [8,10,12,14,16,18]
-givenXY= {givenX[0]:10,
-          givenX[1]:19,
-          givenX[2]:32.5,
-          givenX[3]:54,
-          givenX[4]:89.5,
-          givenX[5]:154}
+#givenX = [0.5, 0.7, 0.9, 1.1, 1.3, 1.5]
+givenX = [0, 1, 2, 3, 4, 5]
+givenXY= {givenX[0]:0,
+          givenX[1]:0.25,
+          givenX[2]:0.0,
+          givenX[3]:2.25,
+          givenX[4]:16,
+          givenX[5]:56.25}
 
 #Initailzing a (starting value) and h(interval of differencing)
 a = givenX[0]
 h = givenX[1] - givenX[0]
 #Value for x for which we want to interpolate for
-x = 9
+x = 0.54
 
 #This function will create and print a forward difefrence table
 # First row (0) will be values of y corresponding to x
@@ -60,54 +61,10 @@ def createForwardDiffTable():
 
 
 
-#=====================================================
-#=====================================================
-def theNewtonForwardFormula(u, forwardDiffTable):
-    global givenX, a;
-    sum = 0;
-    n = len(givenX)
-
-    #Since only n-1 forward differences can be found using n values: 0 --> n-1
-    for i in range(0,n):
-        sum = sum + (factNotation(u,i)*forward_Diff(a, i, forwardDiffTable)/factorial(i))
-
-    return sum;        
-
-    
-#=====================================================
-#=====================================================
-#To calculate u(u-1)(u-2).....(u-(n-1))
-def factNotation(u,n):
-    pdt = 1;
-    for i in range(0,n):
-        pdt = pdt*(u-i)
-        
-    return pdt
-
-    
-#=====================================================
-#=====================================================
-#This func will calculate the forward difference 
-def forward_Diff(xo, n, forwardDiffTable):
-    global givenX;
-    index =  givenX.index(xo);
-    return forwardDiffTable[index][n]
-
-
-
 def main():
     global givenX, givenXY, a, h, x;
     forwardDiffTable = createForwardDiffTable();
 
-    u = (x-a)/h
-
-    print("x = {}, a = {}, h = {}, u = {}".format(x,a,h,u))
-    
-    interpolation = theNewtonForwardFormula(u, forwardDiffTable)
-
-    print("The interpolation value at x = {} is {}".format(x, interpolation))
-    
-    
 
 if __name__ == "__main__":
     main()

@@ -2,17 +2,18 @@
 
 from sympy import *
 
+
 #The variable x, for defining the function
 x = Symbol('x')
 #function in x that is to be integrated (2nd order fun can be: 5*x**2 + 2*x + 1)
-#func = sin(x)/x
-func = 1/(1 + x**2)
-# a -> starting limit (Since division by 0 is not allowed, making it very small)
+#func = exp(sin(x))
+func = 1/(1 + x**2);
+# a -> starting limit
 a = 0
 # b -> end limit
 b = 1
 # n -> number of intervals
-n = 8
+n = 6
 
 
 #======================================================================
@@ -22,7 +23,6 @@ n = 8
 #returns h
 def getH():
     global a,b,n;
-    #If h is given, replace below with with return <valH>
     return (b-a)/n
 
 
@@ -35,13 +35,11 @@ def getH():
 def getValueTable(fx,h):
     global a,b,n;
 
-    #Initilizing with 0
     #There are (n+1) x values for n intervals:xo, x1, x2, ...., xn
     xVals = [0] * (n+1)
 
     #Corresponding values (y) of fucntion for x 
     yVals = [0] * (n+1)
-
 
     print("--------------------")
     print("x \t-> y")
@@ -53,7 +51,7 @@ def getValueTable(fx,h):
         yVals[i] = fx(xVals[i]);
         
         print("{0:.4f}".format(xVals[i]), end=" ")
-        print(" -> {0:.8f}".format(yVals[i]))
+        print(" -> {0:.4f}".format(yVals[i]))
 
     print("--------------------")
     
@@ -67,21 +65,24 @@ def getValueTable(fx,h):
 
 
 #Main function that implements trapezoidal rule
-#  = h[1/2(y0 + yn) + (y1 + y2 + ....+ yn-1)]
-def trapezoidalRule(y, h):
+#  = (3h/8)[(y0 + yn) + 3(y1 + y2 + y4 + y5 +....+ yn-1) + 2(y3 + y6 + .. + yn-3)]
+def simpson3_8Rule(y, h):
     n = len(y) - 1;
 
-    #1. mean of first and last ornate
-    integration = (y[0]+y[n])/2;
+    #1. (y0 + yn)
+    integration = y[0]+y[n];
     
     
     #2. sum of all the intermediate ornate: 1 to n-1
     for i in range(1,n):
-        integration = integration + y[i];
+        if(i%3 == 0): #if i is multiple of 3, add twice of it
+            integration = integration + (2*y[i]);
+        else:
+            integration = integration + (3*y[i]);
 
     
-    #3. multiply by h (distance b/w 2 consecutive ornate)
-    integration = h*integration
+    #3. multiply by h/3 
+    integration = (3*h/8)*integration
 
     return integration;
 
@@ -102,9 +103,9 @@ def main():
     h = getH();
     valueTable = getValueTable(fx,h);
 
-    integration = trapezoidalRule(valueTable, h);
+    integration = simpson3_8Rule(valueTable, h);
 
-    print("The value of integration is {0:.8f}".format(integration));
+    print("The value of integration is {0:.7f}".format(integration));
 
 
 

@@ -4,26 +4,28 @@ from sympy import *
 from math import *
 
 #Initialization part
+#The variable x, for defining the function
+x = Symbol('x')
 
 #User will input givenX and givenXY
-givenX = [8,10,12,14,16,18]
-givenXY= {givenX[0]:10,
-          givenX[1]:19,
-          givenX[2]:32.5,
-          givenX[3]:54,
-          givenX[4]:89.5,
-          givenX[5]:154}
+#givenX = [0.5, 0.7, 0.9, 1.1, 1.3, 1.5]
+givenX = [-1, -0, 3, 6, 7]
+givenXY= {givenX[0]:3,
+          givenX[1]:-6,
+          givenX[2]:39,
+          givenX[3]:822,
+          givenX[4]:1611}
 
 #Initailzing a (starting value) and h(interval of differencing)
 a = givenX[0]
 h = givenX[1] - givenX[0]
 #Value for x for which we want to interpolate for
-x = 9
+
 
 #This function will create and print a forward difefrence table
 # First row (0) will be values of y corresponding to x
 # Second row (1) will be Ist difefrence
-def createForwardDiffTable():
+def createDividedDiffTable():
     global givenX, givenXY;
 
     #For n given values we can find upto (n-1)th forward difference.
@@ -41,11 +43,11 @@ def createForwardDiffTable():
     for j in range(1,n):
         i_range = i_range - 1;
         for i in range(0,i_range):
-            forTable[i][j] = forTable[i+1][j-1] - forTable[i][j-1]
+            forTable[i][j] = (forTable[i+1][j-1] - forTable[i][j-1])/(givenX[i+j]-givenX[i])
     
     #printing the difference table
     print("=====================================================")
-    print("THE FORWARD DIFFERENCE TABLE IS:")
+    print("THE Divided DIFFERENCE TABLE IS:")
     print("=====================================================")
     j_range = n+1;
     for i in range(0,n):
@@ -60,54 +62,69 @@ def createForwardDiffTable():
 
 
 
+
 #=====================================================
 #=====================================================
-def theNewtonForwardFormula(u, forwardDiffTable):
+def theNewtonDivFormula(DivDiffTable):
     global givenX, a;
+    global x;
+    
     sum = 0;
     n = len(givenX)
 
+    print("Puttig data in Newton Div Formula:")
+    print("f(x) = ", end=" ")
     #Since only n-1 forward differences can be found using n values: 0 --> n-1
     for i in range(0,n):
-        sum = sum + (factNotation(u,i)*forward_Diff(a, i, forwardDiffTable)/factorial(i))
+        currTerm = factNotation(i)*giveDiv_Diff(a, i, DivDiffTable)
+        print(currTerm, end=" + ")
+        sum = sum + currTerm;
 
-    return sum;        
+    return sum;
 
-    
+
+
 #=====================================================
 #=====================================================
-#To calculate u(u-1)(u-2).....(u-(n-1))
-def factNotation(u,n):
+#In Newton divided differece:
+# f(x) = f(xo) + (x-xo)(x-x1)f(xo,x1,x2) = ...+
+# n belongs to 0 to n(length of x)
+#This will return:
+# (x-xo)(x-x1)....(x-xn-1)
+def factNotation(n):
+    global x, givenX;
     pdt = 1;
+
+    if n==0:
+        return 1;
+    
     for i in range(0,n):
-        pdt = pdt*(u-i)
+        pdt = pdt*(x-givenX[i])
         
     return pdt
 
-    
+
+
 #=====================================================
 #=====================================================
 #This func will calculate the forward difference 
-def forward_Diff(xo, n, forwardDiffTable):
+def giveDiv_Diff(xo, n, DivDiffTable):
     global givenX;
     index =  givenX.index(xo);
-    return forwardDiffTable[index][n]
+    return DivDiffTable[index][n]
+
 
 
 
 def main():
     global givenX, givenXY, a, h, x;
-    forwardDiffTable = createForwardDiffTable();
+    DivDiffTable = createDividedDiffTable();
 
-    u = (x-a)/h
+    #print(giveDiv_Diff(-4, 0, DivDiffTable))
 
-    print("x = {}, a = {}, h = {}, u = {}".format(x,a,h,u))
-    
-    interpolation = theNewtonForwardFormula(u, forwardDiffTable)
-
-    print("The interpolation value at x = {} is {}".format(x, interpolation))
-    
-    
+    finalFormula = simplify(theNewtonDivFormula(DivDiffTable));
+    print("\n=====================\n")
+    print(finalFormula)
 
 if __name__ == "__main__":
     main()

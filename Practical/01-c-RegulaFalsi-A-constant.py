@@ -30,7 +30,7 @@ def regulaFalsi_A(fx):
         xn = x_new;
         fxn = fx(xn);
         
-        print("x{} = {} \t f(xn) = {}".format(i, xn,fxn));
+        print("x{} = {} \t f(x{}) = {}".format(i, xn,i,fxn));
 
 
     return xn;

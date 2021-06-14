@@ -64,7 +64,7 @@ if __name__ == '__main__':            #When the module is run directly, the foll
     #b = np.array([9,23,22,47])
 
     a = np.array([[2,1,4],[8,-3,2],[4,11,-1]])
-    b = np.array([4,11,-1])
+    b = np.array([12,20,33])
     
     Crout(a, b)
 

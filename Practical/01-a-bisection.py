@@ -26,9 +26,23 @@ def numerical_bisection(fx):
     print('Starting points are: a = {}, and b = {}\n'.format(a,b))
     print('STARTING BISECTION NOW!.......')
     
+    i = 1;
     while True:
         m = (a+b)/2;
         fm = fx(m);
+
+        print("===========================")
+        print("\n{:02d}".format(i), end=". ")
+        print("a={0:.6f}".format(a), end=" ");
+        print("f(a)={0:.6f}".format(fa), end="\t");
+        
+        print("b={0:.6f}".format(b), end=" ");
+        print("f(b)={0:.6f}".format(fb), end="\t");
+
+        print("m={0:.6f}".format(m), end=" ");
+        print("f(m)={0:.6f}".format(fm));
+        
+        i = i+1;
         
         if(abs(fm) < 0.000001):#Least count. Or this precision is enough
             break;

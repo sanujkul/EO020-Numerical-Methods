@@ -6,19 +6,19 @@ from math import *
 #Initialization part
 
 #User will input givenX and givenXY
-givenX = [0.5, 0.7, 0.9, 1.1, 1.3, 1.5]
-givenXY= {givenX[0]:0.47943,
-          givenX[1]:0.64422,
-          givenX[2]:0.78333,
-          givenX[3]:0.89121,
-          givenX[4]:0.96356,
-          givenX[5]:0.99749}
+givenX = [8,10,12,14,16,18]
+givenXY= {givenX[0]:10,
+          givenX[1]:19,
+          givenX[2]:32.5,
+          givenX[3]:54,
+          givenX[4]:89.5,
+          givenX[5]:154}
 
 #Initailzing a (starting value) and h(interval of differencing)
 a = givenX[0]
 h = givenX[1] - givenX[0]
 #Value for x for which we want to interpolate for
-x = 1.36
+x = 19
 
 
 #This function will create and print a forward difefrence table

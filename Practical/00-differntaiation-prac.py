@@ -14,8 +14,9 @@ print(f)
 
 print(f_prime)
 
-print(f2)
 
+print(f2)
+print(simplify(f2))
 
 
 f = lambdify(x, f)
@@ -24,7 +25,6 @@ f_prime = lambdify(x, f_prime)
 f3 = f_prime(x+2)
 print(f3)
 
-print(f3(2))
 
 print(f_prime)
 

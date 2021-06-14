@@ -12,13 +12,13 @@ pivot = True;
 a11 = Fraction(1, 1);
 a12 = Fraction(1, 1);
 a13 = Fraction(1, 1);
-a14 = Fraction(-2, 1);
+a14 = Fraction(0, 1);
 
 #Row 2
 a21 = Fraction(3, 1);
 a22 = Fraction(3, 1);
 a23 = Fraction(4, 1);
-a24 = Fraction(1, 1);
+a24 = Fraction(0, 1);
 
 #Row 3
 a31 = Fraction(2, 1);
@@ -30,13 +30,13 @@ a34 = Fraction(0, 1);
 a41 = Fraction(1, 1);
 a42 = Fraction(3, 1);
 a43 = Fraction(2, 1);
-a44 = Fraction(-1, 1);
+a44 = Fraction(0, 1);
 
 #Column Bmatrix
 b1 = Fraction(6, 1);
 b2 = Fraction(20, 1);
 b3 = Fraction(13, 1);
-b4 = Fraction(-5, 1);
+b4 = Fraction(0, 1);
 
 
 #NOTE: Python Matrix indexing starts from 0

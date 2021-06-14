@@ -9,10 +9,13 @@ z = Symbol('z')
 
 #Equations in x, y, z: Give inputs here:
 # ax + by + cz = d 
-a1 = 28;     b1 = -4;    c1 = -1;     d1 = 32;
-a2 = 2;     b2 = 17;     c2 = 4;    d2 = 35;
-a3 = 1;     b3 = 3;    c3 = 10;    d3 = 24;
+#a1 = 28;     b1 = -4;    c1 = -1;     d1 = 32;
+#a2 = 2;     b2 = 17;     c2 = 4;    d2 = 35;
+#a3 = 1;     b3 = 3;    c3 = 10;    d3 = 24;
 
+a1 = 8;     b1 = -3;    c1 = 2;     d1 = 20;
+a2 = 4;     b2 = 11;     c2 = -1;    d2 = 33;
+a3 = 6;     b3 = 3;    c3 = 12;    d3 = 36;
 
 precision = 0.00001
 
@@ -33,6 +36,7 @@ def main():
     x0 = x_val(0,0)
     y0 = y_val(0,0)
     z0 = z_val(0,0)
+    print("0. x = {} \t y = {} \t z = {}".format(x0,y0,z0))
 
     x1 = x_val(y0,z0)
     y1 = y_val(x0,z0)
@@ -41,18 +45,23 @@ def main():
     #print(x0,y0,z0)
     #print(x1,y1,z1)
 
-    count = 0;
+    count = 1;
 
+    print("{}. x = {} \t y = {} \t z = {}".format(count,x1,y1,z1))
+    
     while (abs(x1-x0) > precision) or (abs(y1-y0) > precision) or (abs(z1-z0) > precision):
         x0 = x1
         y0 = y1
         z0 = z1
-
+        
         x1 = x_val(y0,z0)
         y1 = y_val(x0,z0)
         z1 = z_val(x0,y0)
 
         count += 1;
+        print("{}. x = {} \t y = {} \t z = {}".format(count,x1,y1,z1))
+
+        
 
     print("Solution of given equation is : ({}, {}. {})".format(x1,y1,z1))
     print("Number of itertaions = {}".format(count))    
